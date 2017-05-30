@@ -1,0 +1,24 @@
+-cp src
+-cp tests
+
+-lib thx.csv
+-lib unifill
+
+-debug
+-dce full
+-D analyzer-optimize
+
+-main Main
+
+--each
+
+-cp gen
+--macro gen.Build.generate()
+
+--next
+
+-neko bin/cc.n
+
+--next
+
+-js bin/cc.js
