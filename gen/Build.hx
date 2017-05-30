@@ -30,6 +30,7 @@ class Build {
         var output = '${Sys.getCwd()}/src/uhx/types/Countries.hx'.normalize();
         var map = new Map<String, Array<Expr>>();
         var lookup = [];
+        var cc = [];
 
         for (i in 0...data.length) {
             var info:CvsData = cast data[i];
@@ -48,8 +49,8 @@ class Build {
 
             fields.push( temp.fields[0] );
             
-            lookup.push( macro $v{info.alpha2} => [$i{info.alpha2}] );
-            lookup.push( macro $v{info.alpha2.toLowerCase()} => [$i{info.alpha2}] );
+            cc.push( macro $v{info.alpha2.toLowerCase()} => $i{info.alpha2} );
+            if (info.ccTLD != null && info.ccTLD != '' && info.ccTLD.substring(1) != info.alpha2.toLowerCase()) cc.push( macro $v{info.ccTLD.substring(1)} => $i{info.alpha2} );
 
             if (!map.exists(info.name)) {
                 map.set(info.name, [
@@ -65,6 +66,7 @@ class Build {
         for (key in map.keys()) lookup.push( macro $v{key} => $a{map.get(key)} );
         var td = macro class Countries {
             public static var list(default, never):Map<String, Array<uhx.types.Country>> = $a{lookup};
+            public static var cc(default, never):Map<String, uhx.types.Country> = $a{cc};
         }
 
         td.fields = fields.concat(td.fields);
