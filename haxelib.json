@@ -1,0 +1,15 @@
+{
+  "name": "country-codes",
+  "license": "MIT",
+  "classPath": "src",
+  "tags": ["uhu", "uhx", "types", "cc", "country", "code", "country codes"],
+  "description": "Library which holds information on countries, names, country codes and more.",
+  "contributors": ["skial"],
+  "releasenote": "Initial Release",
+  "version": "0.0.1-alpha",
+  "url": "https://github.com/skial/country-codes",
+  "dependencies": {
+	"thx.csv": "",
+    "unifill": ""
+  }
+}
